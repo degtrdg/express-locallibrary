@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  h1 Dynamic content 
+
+  if error 
+    p Error getting your stuff 
+  else 
+    p The library has the following record counts: 
+
+    ul 
+      li #[strong Books:]  !{data.book}
+      li #[strong Copies:]  !{data.bookinstance}
+      li #[strong Copies Available:]  !{data.bookavailable}
+      li #[strong Authors:]  !{data.author}
+      li #[strong Genres:]  !{data.genre}
+

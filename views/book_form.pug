@@ -1,0 +1,50 @@
+extends layout 
+
+block content 
+    h1=title 
+
+    form(method= 'POST' action='')
+        .form-group     
+            label(for='title') Title: 
+            input#title.form-control(type='text' placeholder='Name' name='title' required='true' )
+        .form-group     
+            label(for='author') Author: 
+            select.form-control(name='author'  placeholder='Select Author' required='true' )
+                - 
+                    console.log(authors)
+                    authors.sort(
+                        function (a,b){
+                            let textA = a.family_name.toUpperCase()
+                            let textB = b.family_name.toUpperCase()
+                            if(textA>textB){
+                                return 1;
+                            }else if(textB > textA){
+                                return -1;
+                            }else{
+                                return 0;
+                            }
+                            })
+                each author in authors
+                    if(book)
+                        option(value=author._id selected=((book.author._id.toString() == author._id.toString() || book.author.toString() == author._id.toString() )? true : false)) #{author.name}
+                    else
+                        option(value=author._id) #{author.name}
+                    
+        .form-group     
+            label(for='summary') Summary: 
+            input#title.form-control(type='textarea' placeholder='Summary' name='summary' required='true' value=(book === undefined ? '': book.summary))
+        .form-group     
+            label(for='isbn') ISBN: 
+            input#title.form-control(type='text' placeholder='ISBN' name='isbn' required='true' value=(book === undefined ? '': book.isbn))
+        .form-group     
+            label(for='genre') Genre:
+                div 
+                    each genre in genres 
+                        div(style='display:inline; padding-right:10px')
+                            label(for='genre') #{genre.name}
+                            input.checkbox-input(type='checkbox' name='genre' id=genre._id value=genre._id  checked= genre.checked)
+        button.btn.btn-primary(type='submit') Submit
+    if errors 
+        each error in errors
+            li!= error.msg
+
