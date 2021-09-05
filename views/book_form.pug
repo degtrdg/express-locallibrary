@@ -11,7 +11,6 @@ block content
             label(for='author') Author: 
             select.form-control(name='author'  placeholder='Select Author' required='true' )
                 - 
-                    console.log(authors)
                     authors.sort(
                         function (a,b){
                             let textA = a.family_name.toUpperCase()
